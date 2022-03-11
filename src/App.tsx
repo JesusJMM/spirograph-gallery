@@ -10,12 +10,12 @@ const App = () => {
   globalStyles()
   return (
     <Routes>
-      <Route path='/' element={
+      <Route path='/spirograph-gallery' element={
         <React.Suspense fallback={<Loader r1={100} r2={100 / 2.4}k={100/2.4 - 12} />}>
           <Gallery />
         </React.Suspense>
       } />
-      <Route path='/editor' element={
+      <Route path='/spirograph-gallery/editor' element={
         <React.Suspense fallback={<Loader  r1={100} r2={100 / 2.4}k={100/2.4 - 12}/>}>
           <Editor />
         </React.Suspense>
