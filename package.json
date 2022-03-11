@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview --host",
-    "deploy": "gh-pages -d dist",
-    "predeploy": "npm run build && cp 404.html ./dist/"
+    "preview": "vite preview --host"
   },
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
@@ -16,7 +14,6 @@
     "@radix-ui/react-radio-group": "^0.1.4",
     "@radix-ui/react-slider": "^0.1.3",
     "@stitches/react": "^1.2.7",
-    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
