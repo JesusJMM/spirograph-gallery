@@ -8,18 +8,24 @@ import CanvasControls from '../components/editor/canvasControls'
 const Layout = styled('div', {
   display: 'flex',
   flexDirection: 'column-reverse',
-  paddingBlock: '$6',
+  paddingBlock: '0',
   '& .sticky': {
     backgroundColor: '$slate2',
     position: 'sticky',
-    top: 0,
-    borderBottom: 'solid 1px $slate8'
+    top: '$6',
+    borderBottom: 'solid 1px $slate8',
+    marginBottom: '$6',
   },
   '@md':{
     width: '100%',
     height: '100%',
     display: 'grid',
     gridTemplateColumns: '350px 2fr',
+    '& .sticky': {
+      borderBottom: 'solid 1px transparent',
+      marginBottom: '0',
+      top: '0',
+    }
   }
 })
 
