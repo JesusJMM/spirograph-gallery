@@ -102,7 +102,7 @@ const Gallery: React.FC = () => {
     <Container>
       <Flex css={{ justifyContent:'center', alignItems:'center', flexWrap:'wrap', columnGap:'$6', marginBottom:'$6'}}>
         <h1 style={{ position:'relative', paddingLeft:'15%'}}>Gallery</h1>
-        <Link href='/editor'><ArrowRightIcon /> Go to Editor</Link>
+        <Link href='/spirograph-gallery/editor'><ArrowRightIcon /> Go to Editor</Link>
       </Flex>
       {data.map((d, i) => {
         const baseID = i

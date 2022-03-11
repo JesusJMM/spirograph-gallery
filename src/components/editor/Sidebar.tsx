@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarEditorProps> = ({
     <Container>
       <h1>Options</h1>
       <Flex css={{ justifyContent:'center', marginBottom:'$6', marginTop:'$2'}}>
-        <Link href='/'><ArrowLeftIcon /> Go to gallery</Link>
+        <Link href='/spirograph-gallery/'><ArrowLeftIcon /> Go to gallery</Link>
       </Flex>
         <FormGroup>
           <span>R </span>
