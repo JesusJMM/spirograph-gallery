@@ -5,6 +5,7 @@ import { styled } from '../stitchesTheme'
 import { violet } from '@radix-ui/colors'
 import { toileLoopSubscribe, toileFramesFunctions} from 'toile-canvas'
 import { spirografhLaps } from '../utils/spirographs'
+import { spirograph } from '../lib/spirograph'
 
 const Container = styled('div', {
   display: 'flex',
@@ -36,10 +37,8 @@ const Loader: React.FC<LoaderProps> = ({r1, r2, k}) => {
       }
       draw.clear()
       a+= 0.1
-      points.push({
-        x: (r1 - r2) * Math.cos(a) + k * Math.cos(a * (1 - (r1 / r2))),
-        y: (r1 - r2) * Math.sin(a) + k * Math.sin(a * (1 - (r1 / r2))),
-      })
+      const { target } = spirograph(a, r1, r2, k, 'hypo')
+      points.push(target)
       draw.lines(points)
     }
   }
