@@ -4,6 +4,8 @@ import * as React from 'react'
 import Canvas from './GalleryCanvas'
 import { blue, red, violet } from '@radix-ui/colors'
 import { spirografhLaps, spirografhLapsFromP } from '../../utils/spirographs'
+import { spirograph } from '../../lib/spirograph'
+import { drawSpirographGuides } from '../../lib/draw'
 
 interface HypocycloidProps {
   canvasID: string
@@ -27,7 +29,7 @@ const Hypocycloid: React.FC<HypocycloidProps> = ({ canvasID, p, k = 0, R=100, co
     const r1 = R
     const r2 = r1 / p
     return () => {
-      if (angle.current >= spirografhLapsFromP(r1, p) * Math.PI * 2) {
+      if (angle.current > spirografhLapsFromP(r1, p) * Math.PI * 2) {
         setPlay(false)
         angle.current = spirografhLapsFromP(r1, p) * Math.PI * 2
       }
@@ -37,27 +39,12 @@ const Hypocycloid: React.FC<HypocycloidProps> = ({ canvasID, p, k = 0, R=100, co
         angle.current += 0.05
       }
       const _k = k === 0 ? r2 : k
-      const a = angle.current
-      const cx = (r1 - r2) * Math.cos(a)
-      const cy = (r1 - r2) * Math.sin(a)
-      if (play) {
-        points.current.push({
-          x: cx + _k * Math.cos(a * (1 - r1 / r2)),
-          y: cy + _k * Math.sin(a * (1 - r1 / r2)),
-        })
-      }
+      const { circle, target } = spirograph(angle.current, r1, r2, _k, 'hypo')
+      if (play) points.current.push(target)
       draw.lines(points.current)
+
       if (!hide) {
-        draw.Scol = blue.blue9
-        draw.circle(0, 0, r1)
-        draw.Scol = red.red9
-        draw.circle(cx, cy, r2)
-        draw.line(
-          cx,
-          cy,
-          cx + _k * Math.cos(a * (1 - r1 / r2)),
-          cy + _k * Math.sin(a * (1 - r1 / r2))
-        )
+        drawSpirographGuides(draw, r1, r2, target, circle)
       }
     }
   }
