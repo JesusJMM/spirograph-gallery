@@ -10,7 +10,7 @@ export default function useOnScreen(ref: React.RefObject<HTMLElement>) {
       setIntersecting(entry.isIntersecting)
     },
     {
-      threshold: 0.5
+      threshold: 0.3
     }
   )
 
