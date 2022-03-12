@@ -67,7 +67,6 @@ const Canvas: React.FC<canvasEditorProps> = ({
   })
   // resize the canvas
   useEffect(() => {
-    console.log(toile.current)
     if(toile.current){
       toile.current.resize(width, height)
     }

@@ -32,7 +32,6 @@ const Layout = styled('div', {
 const Editor = () => {
   const { x, y } = useScreenSize()
   const maxCanvasSize = 400
-  console.log(x, y)
   const canvasSize = min(x - 32, y - 32, maxCanvasSize)
 
   const [r1, setR1] = useState(50)

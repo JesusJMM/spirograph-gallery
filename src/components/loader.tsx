@@ -30,7 +30,6 @@ const Loader: React.FC<LoaderProps> = ({r1, r2, k}) => {
     draw.Fcol = ''
     draw.Swidth = 3
     draw.ctx.lineCap = 'round'
-    console.log(spirografhLaps(r1, r2))
     return () => {
       if(a > Math.PI * spirografhLaps(r1, r2) * 5){
         return
