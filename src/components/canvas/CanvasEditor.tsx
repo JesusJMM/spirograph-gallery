@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { styled } from '../../stitchesTheme'
 import Toile, { toileLoopSubscribe, toileLoopUnsubcribe } from 'toile-canvas'
 import { blue, red, violet } from '@radix-ui/colors'
+import { spirograph, Point } from '../../lib/spirograph'
 
 const StyledCanvas = styled('canvas', {
   border: 'solid 1px $slate8',
@@ -37,6 +38,15 @@ function getMaxLaps(r1: number, r2: number){
   return laps
 }
 
+function drawSpirographGuides(draw: Toile, r1: number, r2: number, target: Point, c: Point){
+  draw.Scol = blue.blue9
+  draw.circle(0, 0, r1)
+  draw.Scol = red.red9
+  draw.circle(c.x, c.y, r2)
+  draw.line(c.x, c.y, target.x, target.y)
+  draw.circle(target.x, target.y, 3)
+}
+
 const Canvas: React.FC<canvasEditorProps> = ({
   width,
   height,
@@ -54,7 +64,6 @@ const Canvas: React.FC<canvasEditorProps> = ({
   const points = useRef<{x: number, y: number}[]>([])
   const angle = useRef(0)
   const maxLaps = getMaxLaps(r1,r2)
-  const type = cycloidType === 'hypo' ? 1 : -1
 
   // initialize
   useEffect(() => {
@@ -80,36 +89,21 @@ const Canvas: React.FC<canvasEditorProps> = ({
     draw.ctx.lineJoin = 'round'
     // return a function that will executed in each frame
     return () => {
-      draw.clear()
       if(play){
         angle.current += 0.04
       }
-      const a = angle.current
-      const cx = (r1 - r2 * type) * Math.cos(a)
-      const cy = (r1 - r2 * type) * Math.sin(a)
-      let point = {x: 0, y: 0}
-      if(cycloidType === 'epi'){
-        point.x = cx - k * Math.cos((r1 + r2) / r2 * a)
-        point.y = cy - k * Math.sin((r1 + r2) / r2 * a)
-      }else{
-        point.x = cx + k * Math.cos(a * (1 - r1 / r2)) 
-        point.y = cy + k * Math.sin(a * (1 - r1 / r2))
+      const currentLaps = Math.round(angle.current / (Math.PI * 4) )
+      const {circle, target} = spirograph(angle.current, r1, r2, k, cycloidType)
+      if(currentLaps <= maxLaps){
+        points.current.push(target)
       }
-      if(Math.round(a / (Math.PI * 4) ) <= maxLaps){
-        points.current.push({...point})
-      }
-
       if(justCalculate) return
-      // draw stuff
+      // draw
+      draw.clear()
       draw.Scol=violet.violet9
       draw.lines(points.current)
       if(!hide){
-        draw.Scol = blue.blue9
-        draw.circle(0, 0, r1)
-        draw.Scol = red.red9
-        draw.circle(cx, cy, r2)
-        draw.line(cx, cy, point.x, point.y)
-        draw.circle(point.x, point.y, 3)
+        drawSpirographGuides(draw, r1, r2, target, circle)
       }
     }
   }
