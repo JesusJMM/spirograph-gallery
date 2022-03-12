@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { styled } from '../../stitchesTheme'
 import Toile, { toileLoopSubscribe, toileLoopUnsubcribe } from 'toile-canvas'
-import { blue, red, violet } from '@radix-ui/colors'
-import { spirograph, Point } from '../../lib/spirograph'
+import { violet } from '@radix-ui/colors'
+import { spirograph } from '../../lib/spirograph'
+import { drawSpirographGuides } from '../../lib/draw'
 
 const StyledCanvas = styled('canvas', {
   border: 'solid 1px $slate8',
@@ -38,14 +39,6 @@ function getMaxLaps(r1: number, r2: number){
   return laps
 }
 
-function drawSpirographGuides(draw: Toile, r1: number, r2: number, target: Point, c: Point){
-  draw.Scol = blue.blue9
-  draw.circle(0, 0, r1)
-  draw.Scol = red.red9
-  draw.circle(c.x, c.y, r2)
-  draw.line(c.x, c.y, target.x, target.y)
-  draw.circle(target.x, target.y, 3)
-}
 
 const Canvas: React.FC<canvasEditorProps> = ({
   width,
