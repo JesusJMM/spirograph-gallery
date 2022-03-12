@@ -5,7 +5,7 @@ import Hypocycloid from '../components/canvas/hypocycloid'
 import Epicycloid from '../components/canvas/epicycloid'
 import { orange, pink, teal, violet } from '@radix-ui/colors'
 import { Flex } from '../components/utils/container'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
+import { ArrowRightIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 
 const CanvasGallery = styled('div', {
   display: 'flex',
@@ -100,10 +100,17 @@ const Gallery: React.FC = () => {
   ]
   return (
     <Container>
-      <Flex css={{ justifyContent:'center', alignItems:'center', flexWrap:'wrap', columnGap:'$6', marginBottom:'$6'}}>
+      <Flex css={{ justifyContent:'center', alignItems:'center', flexWrap:'wrap', columnGap:'$6'}}>
         <h1 style={{ position:'relative', paddingLeft:'15%'}}>Gallery</h1>
         <Link href='/editor'><ArrowRightIcon /> Go to Editor</Link>
       </Flex>
+        <Link 
+          href='https://github.com/JesusJMM/spirograph-gallery'        
+          target="_blank"
+          css={{ display:'flex' , alignItems: 'center', gap: '$3', marginBlock:'$6'}}>
+          <GitHubLogoIcon />
+          <span>See the source code.</span>
+        </Link>
       {data.map((d, i) => {
         const baseID = i
         const SpirographComp = d.component
