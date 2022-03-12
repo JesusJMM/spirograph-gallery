@@ -83,7 +83,7 @@ const Canvas: React.FC<canvasEditorProps> = ({
     // return a function that will executed in each frame
     return () => {
       if(play){
-        angle.current += 0.04
+        angle.current -= 0.04
       }
       const currentLaps = Math.round(angle.current / (Math.PI * 4) )
       const {circle, target} = spirograph(angle.current, r1, r2, k, cycloidType)

@@ -20,8 +20,8 @@ export function spirograph(angle: number, r1: number, r2: number, k: number, typ
   }
   const f = type === 'epi' ? epicycloid : hypocycloid
   const point = {
-    x: c.x - k * Math.cos(f(angle, r1, r2)),
-    y: c.y - k * Math.sin(f(angle, r1, r2))
+    x: c.x + k * Math.cos(f(angle, r1, r2)) * cSign,
+    y: c.y + k * Math.sin(f(angle, r1, r2)) * cSign
   }
   return {circle: c, target: point}
 }
