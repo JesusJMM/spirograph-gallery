@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { spirografhLapsFromP } from '../../utils/spirographs'
 import Canvas from './GalleryCanvas'
 import Toile from 'toile-canvas'
 import { blue, red, violet } from '@radix-ui/colors'
+import { spirograph } from '../../lib/spirograph'
+import { drawSpirographGuides } from '../../lib/draw'
 
 interface EpicycloidProps {
   canvasID: string
@@ -36,35 +38,20 @@ const Epicycloid: React.FC<EpicycloidProps> = ({
     draw.ctx.lineCap = 'round'
     const r2 = R / p
     return () => {
-      if (play && Math.abs(angle.current) < maxAngle) {
+      if(Math.abs(angle.current) < maxAngle) {
         angle.current -= V
       }else{
         setPlay(false)
         angle.current = -maxAngle
       }
-      const a = angle.current
       draw.clear()
       draw.Scol = color
-      const cx = (R + r2) * Math.cos(a)
-      const cy = (R + r2) * Math.sin(a)
       const _h = h == 0 ? r2 : h
-      if (play && Math.abs(a) < maxAngle) {
-        points.current.push({
-          x: cx - _h * Math.cos((R + r2) / r2 * a),
-          y: cy - _h * Math.sin((R + r2) / r2 * a),
-        })
-      }
+      const {circle, target } = spirograph(angle.current, R, r2, _h, 'epi')
+      if(Math.abs(angle.current) < maxAngle) points.current.push(target)
       draw.lines(points.current)
-      if (!hide) {
-        draw.Scol = blue.blue9
-        draw.circle(0, 0, R)
-        draw.Scol = red.red9
-        draw.circle(cx, cy, r2)
-        draw.line(cx, cy,
-          cx - _h * Math.cos((R + r2) / r2 * a),
-          cy - _h * Math.sin((R + r2) / r2 * a)
-        )
-      }
+
+      if (!hide) drawSpirographGuides(draw, R, r2, target, circle)
     }
   }
 
@@ -77,10 +64,13 @@ const Epicycloid: React.FC<EpicycloidProps> = ({
       onHideButton={() => setHide(!hide)}
       onPlayButton={() => {
         setPlay(!play)
+        if(Math.abs(angle.current) == maxAngle){
+          angle.current = 0
+          points.current = []
+        }
       }}
       onResetButton={() => {
         setPlay(true)
-        if(Math.abs(angle.current) > maxAngle)
         angle.current = 0
         points.current = []
       }}
