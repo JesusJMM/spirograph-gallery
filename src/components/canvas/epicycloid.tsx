@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { spirografhLapsFromP } from '../../utils/spirographs'
 import Canvas from './GalleryCanvas'
 import Toile from 'toile-canvas'
-import { blue, red, violet } from '@radix-ui/colors'
+import { violet } from '@radix-ui/colors'
 import { spirograph } from '../../lib/spirograph'
 import { drawSpirographGuides } from '../../lib/draw'
 
