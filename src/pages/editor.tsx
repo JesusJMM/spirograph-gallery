@@ -57,7 +57,7 @@ const Editor = () => {
         onChangeR2={([r]) => {
           setK(r)
           setR2(r)
-          setP((r / r1).toString())
+          setP((r1 / r).toString())
         }}
         onChangeP={(e) => {
           const _p = parseFloat(e.target.value)
