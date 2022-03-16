@@ -128,6 +128,9 @@ const Gallery: React.FC = () => {
           </div>
         )
       })}
+      <Flex css={{ justifyContent: 'center', alignItems:'center', color:'$slate11', paddingBlock: '5em'}}>
+        <p>Created by Jesus Marcano</p>
+      </Flex>
     </Container>
   )
 }
